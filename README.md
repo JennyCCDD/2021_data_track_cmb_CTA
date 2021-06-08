@@ -16,7 +16,7 @@
 
 沪深300股指期货合约，由于每天的数据是打乱的，考虑到时间序列未来数据的问题，并且业内期货CTA策略一般使用日内数据，所以使用日内数据建模，日间模型进行boosting处理。四个y指的是四个期货的交易方向：卖出开仓、卖出平仓、买入开仓、买入平仓。经过数据验证，y1y3和y2y4所有缺失值在同一时刻出现，且所有时间点的和为零，验证了我们的想法说明13和24是对手方交易。
 
-      本次项目我们希望将科技带入金融，有效结合金融和科技进行建模预测，在模型效果好的基础上，同样满足实际业务。
+本次项目我们希望将科技带入金融，有效结合金融和科技进行建模预测，在模型效果好的基础上，同样满足实际业务。
 
 # 1. 数据挖掘
 
@@ -38,7 +38,7 @@
 
 在具体建模过程中，action1的准确性较高，二分类准确性如下图所示：
 
-                 ![img](https://docimg9.docs.qq.com/image/DmVqZJ3eS22wRkumdaEBJg?w=371&h=59)        
+![img](https://docimg9.docs.qq.com/image/DmVqZJ3eS22wRkumdaEBJg?w=371&h=59)        
 
 # 3.特征工程
 
@@ -60,9 +60,11 @@
 - 外盘/主动性买盘，即成交价在卖出挂单价的累积成交量;也就是说，期货交易在卖出价成交，成交价为申卖价，说明买盘比较踊跃。当买方主动成交时（卖价成交）,t1最新价（价位）=t0某一卖价，这一卖价为小于买单限价的最高价，视为买方主动成交。
 - 交易意愿指标及中间价指标：根据交易订单的不均衡性（order imbalance）构造bid与offer的volume变动量之差衡量交易意愿强弱，以及标准化的交易意愿指标rho，交易价与中间价差指标mid，tp
 
-                 ![img](https://docimg5.docs.qq.com/image/O1EWQPSZn52VB1PZpLK5Kg?w=1394&h=174)        
+![img](https://docimg5.docs.qq.com/image/O1EWQPSZn52VB1PZpLK5Kg?w=1394&h=174)        
 
-                 ![img](https://docimg1.docs.qq.com/image/EfHLdeSeIUY5ACRdcs_n9Q?w=296&h=153)                         ![img](https://docimg6.docs.qq.com/image/LYgeukSCjONCDBTxkldLOA?w=1409&h=170)        
+![img](https://docimg1.docs.qq.com/image/EfHLdeSeIUY5ACRdcs_n9Q?w=296&h=153)                         
+
+![img](https://docimg6.docs.qq.com/image/LYgeukSCjONCDBTxkldLOA?w=1409&h=170)        
 
 （ref：https://zhuanlan.zhihu.com/p/296523150）
 
@@ -74,11 +76,11 @@
 
 首先，对特征之间的相关性进行检验，其中可以看出构建的特征之间具有较为明显的聚类特定，也符合商业逻辑；也是后续特征重要性判断和特征降维的前提。
 
-                 ![img](https://docimg5.docs.qq.com/image/sAObyrOIKcO4qHYLzHubXg?w=943&h=717)        
+![img](https://docimg5.docs.qq.com/image/sAObyrOIKcO4qHYLzHubXg?w=943&h=717)        
 
 特征的缺失值检验：除了maxprofit、maxloss和maxdd其他均没有缺失值。缺失值占比11.24%，由于本项目主要使用树模型进行回归预测，树模型对缺失值优秀的处理能力使得我们可以保持些许特征缺失的原样。
 
-                ![img](https://docimg8.docs.qq.com/image/Z7RKs-YbDBtzjpZjwZrQuA?w=1057&h=328)        
+![img](https://docimg8.docs.qq.com/image/Z7RKs-YbDBtzjpZjwZrQuA?w=1057&h=328)        
 
 
 
@@ -104,7 +106,7 @@ max      6251.250000
 
 Name: mean, dtype: float64
 
-                 ![img](https://docimg4.docs.qq.com/image/VnSWhwYywqI6UlkZT32FKw?w=800&h=1500)        
+![img](https://docimg4.docs.qq.com/image/VnSWhwYywqI6UlkZT32FKw?w=800&h=1500)        
 
 
 
@@ -126,7 +128,7 @@ Name: mean, dtype: float64
 
 **（3）不足与下一步想法：**
 
-        经过数据集划分验证线下测试，发现该方法的预测效果并不理想；同时，由于单独的多分类问题本身就具备较大的困难，难以达到合适的收敛，另一方面，结合本题中的“高频交易预测”，若只是简单考虑分类，而忽略label本身的收益值。换句话说，并不是越准确的预测动作就一定能得到最高的收益，也不是不准确的预测动作就得不到总的高收益。
+经过数据集划分验证线下测试，发现该方法的预测效果并不理想；同时，由于单独的多分类问题本身就具备较大的困难，难以达到合适的收敛，另一方面，结合本题中的“高频交易预测”，若只是简单考虑分类，而忽略label本身的收益值。换句话说，并不是越准确的预测动作就一定能得到最高的收益，也不是不准确的预测动作就得不到总的高收益。
 
 
 
@@ -134,7 +136,7 @@ Name: mean, dtype: float64
 
 **（1）基本思想：**
 
-    为了分别体现4个action的return值的意义，以及“+”“-”的实际特性体现，我们进一步考虑分别对y1-y4四个action的return值进行集成模型的预测，构建四种数据标签的预测架构，最终分别预测不同action的return值，从而选取预测出的最大return值作为最终的action预测值。
+为了分别体现4个action的return值的意义，以及“+”“-”的实际特性体现，我们进一步考虑分别对y1-y4四个action的return值进行集成模型的预测，构建四种数据标签的预测架构，最终分别预测不同action的return值，从而选取预测出的最大return值作为最终的action预测值。
 
 **（2）所采取的措施与方法：**
 
@@ -144,10 +146,10 @@ Name: mean, dtype: float64
 - XGBoost+LightGBM的双思路--分别基于两种常用集成树框架进行分析与使用，考虑GPU加速的XGBoost训练优势，以及最终的线上测试时间效率因素，最终选取单模单验证的XGBoost-GPU模型进行训练和预测，并结合特征筛选进行特征降维。
 - 树模型以其对高维特征的筛选效率和庞大数据的运行速度优于其他模型，并且根据滑窗回滚的方式生成的新特征难免会产生缺失值，树模型对缺失值的不敏感也是此项目中脱颖而出的优势。
 
-                 ![img](https://docimg8.docs.qq.com/image/NLzmpuvdOxVjQ8EKCxaWNQ?w=982&h=436)        
+![img](https://docimg8.docs.qq.com/image/NLzmpuvdOxVjQ8EKCxaWNQ?w=982&h=436)        
 
 **（3）不足与下一步想法：**
 
-        由于时间限制和前期的一些错误方向，导致许多方法未进行尝试，包括Bagging类型的集成模型、RNN和LSTM相关时序网络。
+由于时间限制和前期的一些错误方向，导致许多方法未进行尝试，包括Bagging类型的集成模型、RNN和LSTM相关时序网络。
 
-      对于特征来说，可以进一步考虑CTR的传统模式方法，即利用某种树模型（GBDT、RF）进行特征自主筛选，得到对应的叶子节点特征，从而实现特征的自动构造和筛选，基于这些编码特征送入分类/回归网络进行进一步预测。
+对于特征来说，可以进一步考虑CTR的传统模式方法，即利用某种树模型（GBDT、RF）进行特征自主筛选，得到对应的叶子节点特征，从而实现特征的自动构造和筛选，基于这些编码特征送入分类/回归网络进行进一步预测。
